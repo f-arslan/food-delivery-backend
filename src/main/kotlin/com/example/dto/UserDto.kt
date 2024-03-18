@@ -2,10 +2,6 @@ package com.example.dto
 
 import kotlinx.serialization.Serializable
 
-enum class FoodType {
-    Burger, Pizza, Sandwich, Dessert, Snack, Drink
-}
-
 @Serializable
 data class UserDto(
     val id: Int,

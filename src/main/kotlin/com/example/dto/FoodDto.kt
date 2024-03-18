@@ -10,6 +10,10 @@ data class FoodDto(
     val price: Double,
     val rating: Double,
     val orderCount: Int,
-    val type: String,
+    val category: String,
     val imageUrl: String
 )
+
+enum class FoodCategory {
+    Burger, Pizza, Sandwich, Dessert, Snack, Drink
+}
