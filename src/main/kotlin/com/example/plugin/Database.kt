@@ -1,4 +1,4 @@
-package com.example.plugins
+package com.example.plugin
 
 import com.example.service.DatabaseModule
 
