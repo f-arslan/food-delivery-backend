@@ -1,6 +1,7 @@
 package com.example.service
 
 import com.example.table.Foods
+import com.example.table.OrderItems
 import com.example.table.Orders
 import com.example.table.Users
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,7 @@ object DatabaseModule {
             SchemaUtils.create(Users)
             SchemaUtils.create(Foods)
             SchemaUtils.create(Orders)
+            SchemaUtils.create(OrderItems)
         }
     }
 

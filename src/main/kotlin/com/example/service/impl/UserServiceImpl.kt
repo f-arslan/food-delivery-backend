@@ -7,12 +7,10 @@ import com.example.dto.UserUpdateLocationDto
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.UserService
 import com.example.table.Users
+import com.example.util.ext.toUserDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import java.util.UUID
 
 class UserServiceImpl : UserService {
@@ -43,12 +41,12 @@ class UserServiceImpl : UserService {
         }
     }
 
-    override suspend fun getProfileFlow(userId: Int): Result<Flow<UserDto>> = dbQuery {
-        val user = Users.select { Users.id eq userId }
+    override suspend fun getProfileFlow(userId: UUID): Result<Flow<UserDto>> = dbQuery {
+        val user = Users.select { Users.userId eq userId }
         if (user.empty()) {
             throw Exception("User not found")
         } else {
-            val userFlow = user.map(::resultRowToUserDto).asFlow()
+            val userFlow = user.map { it.toUserDto() }.asFlow()
             userFlow
         }
     }
@@ -58,30 +56,23 @@ class UserServiceImpl : UserService {
         if (user.empty()) {
             throw Exception("User not found")
         } else {
-            resultRowToUserDto(user.single())
+            user.single().toUserDto()
         }
     }
 
     override suspend fun updateUserLocation(
-        userId: Int,
+        userId: UUID,
         userUpdateLocationDto: UserUpdateLocationDto
-    ): Result<Boolean> {
-        TODO("Not yet implemented")
+    ): Result<Boolean> = dbQuery {
+        val user = Users.select { Users.userId eq userId }
+        if (user.empty()) {
+            throw Exception("User not found")
+        } else {
+            Users.update({ Users.userId eq userId }) {
+                it[latitude] = userUpdateLocationDto.latitude
+                it[longitude] = userUpdateLocationDto.longitude
+            }
+            true
+        }
     }
-
-    private fun resultRowToUserDto(row: ResultRow): UserDto = UserDto(
-        id = row[Users.id],
-        userId = row[Users.userId].toString(),
-        fullName = row[Users.fullName],
-        email = row[Users.email],
-        password = row[Users.password],
-        phoneNumber = row[Users.phoneNumber],
-        occupation = row[Users.occupation],
-        employer = row[Users.employer],
-        country = row[Users.country],
-        latitude = row[Users.latitude],
-        longitude = row[Users.longitude]
-    )
 }
-
-val userService: UserService = UserServiceImpl()
