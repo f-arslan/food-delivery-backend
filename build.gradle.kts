@@ -45,4 +45,5 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
     implementation("io.ktor:ktor-server-request-validation:$ktor_version")
     implementation("io.ktor:ktor-server-status-pages:$ktor_version")
+    implementation("io.ktor:ktor-server-rate-limit:$ktor_version")
 }

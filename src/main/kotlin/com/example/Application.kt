@@ -16,6 +16,7 @@ fun main() {
 
 fun Application.module() {
     configureDatabase()
+    configureRateLimiting()
     configureSerialization()
     configureRouting()
     configureValidation()

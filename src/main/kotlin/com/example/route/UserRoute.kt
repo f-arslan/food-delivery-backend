@@ -2,13 +2,16 @@ package com.example.route
 
 import com.example.dto.UserLoginDto
 import com.example.dto.UserRegisterDto
-import com.example.service.impl.userService
+import com.example.dto.UserUpdateLocationDto
+import com.example.service.UserService.Companion.userService
+import com.example.util.Constants.GENERIC_ERROR
+import com.example.util.Constants.INVALID_USER_ID
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.util.UUID
+import java.util.*
 
 fun Application.userRoute() {
     routing {
@@ -19,7 +22,7 @@ fun Application.userRoute() {
                 onFailure = { throwable ->
                     call.respond(
                         status = HttpStatusCode.BadRequest,
-                        message = throwable.message ?: "Something went wrong"
+                        message = throwable.message ?: GENERIC_ERROR
                     )
                 }
             )
@@ -32,18 +35,17 @@ fun Application.userRoute() {
                 onFailure = { throwable ->
                     call.respond(
                         status = HttpStatusCode.Unauthorized,
-                        message = throwable.message ?: "Something went wrong"
+                        message = throwable.message ?: GENERIC_ERROR
                     )
                 }
             )
         }
 
         get("/profile/{userId}") {
-            val userId = call.parameters["userId"]?.let { UUID.fromString(it) }
-            if (userId == null) {
+            val userId = call.parameters["userId"]?.let { UUID.fromString(it) } ?: run {
                 call.respond(
                     status = HttpStatusCode.BadRequest,
-                    message = "Invalid user id"
+                    message = INVALID_USER_ID
                 )
                 return@get
             }
@@ -52,7 +54,46 @@ fun Application.userRoute() {
                 onFailure = { throwable ->
                     call.respond(
                         status = HttpStatusCode.NotFound,
-                        message = throwable.message ?: "Something went wrong"
+                        message = throwable.message ?: GENERIC_ERROR
+                    )
+                }
+            )
+        }
+
+        get("/profile/{userId}/flow") {
+            val userId = call.parameters["userId"]?.let { UUID.fromString(it) } ?: run {
+                call.respond(
+                    status = HttpStatusCode.BadRequest,
+                    message = INVALID_USER_ID
+                )
+                return@get
+            }
+            userService.getProfileFlow(userId).fold(
+                onSuccess = { userDtoFlow -> call.respond(userDtoFlow) },
+                onFailure = { throwable ->
+                    call.respond(
+                        status = HttpStatusCode.NotFound,
+                        message = throwable.message ?: GENERIC_ERROR
+                    )
+                }
+            )
+        }
+
+        post("/profile/{userId}/location") {
+            val userId = call.parameters["userId"]?.let { UUID.fromString(it) } ?: run {
+                call.respond(
+                    status = HttpStatusCode.BadRequest,
+                    message = INVALID_USER_ID
+                )
+                return@post
+            }
+            val userUpdateLocationDto = call.receive<UserUpdateLocationDto>()
+            userService.updateUserLocation(userId, userUpdateLocationDto).fold(
+                onSuccess = { call.respond(HttpStatusCode.OK) },
+                onFailure = { throwable ->
+                    call.respond(
+                        status = HttpStatusCode.NotFound,
+                        message = throwable.message ?: GENERIC_ERROR
                     )
                 }
             )

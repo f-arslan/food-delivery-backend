@@ -1,7 +1,7 @@
 package com.example.fake
 
 import com.example.dto.FoodDto
-import com.example.dto.FoodType
+import com.example.dto.FoodCategory
 
 val fakeDessertImageUrls = listOf(
     "https://firebasestorage.googleapis.com/v0/b/gptmap-dev.appspot.com/o/foods%2Fdessert1.jpg?alt=media&token=511a816d-b6d6-43bc-b5d1-d1953b9585cb",
@@ -45,14 +45,14 @@ val snackImageUrls = listOf(
     "https://firebasestorage.googleapis.com/v0/b/gptmap-dev.appspot.com/o/foods%2Fsnack4.jpg?alt=media&token=65481704-42e5-470c-a72c-3f3f4693d86f"
 )
 
-fun getRandomImageUrl(type: FoodType): String {
+fun getRandomImageUrl(type: FoodCategory): String {
     return when (type) {
-        FoodType.Burger -> fakeHamburgerImageUrls.random()
-        FoodType.Pizza -> fakePizzaImageUrls.random()
-        FoodType.Sandwich -> fakeSandwichImageUrls.random()
-        FoodType.Dessert -> fakeDessertImageUrls.random()
-        FoodType.Snack -> snackImageUrls.random()
-        FoodType.Drink -> fakeDrinkImageUrls.random()
+        FoodCategory.Burger -> fakeHamburgerImageUrls.random()
+        FoodCategory.Pizza -> fakePizzaImageUrls.random()
+        FoodCategory.Sandwich -> fakeSandwichImageUrls.random()
+        FoodCategory.Dessert -> fakeDessertImageUrls.random()
+        FoodCategory.Snack -> snackImageUrls.random()
+        FoodCategory.Drink -> fakeDrinkImageUrls.random()
     }
 }
 
@@ -64,8 +64,8 @@ val foodDtos = listOf(
         8.99,
         4.2,
         1256,
-        FoodType.Burger.name,
-        getRandomImageUrl(FoodType.Burger)
+        FoodCategory.Burger.name,
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         2,
@@ -74,8 +74,8 @@ val foodDtos = listOf(
         7.99,
         4.5,
         872,
-        FoodType.Burger.name,
-        getRandomImageUrl(FoodType.Burger)
+        FoodCategory.Burger.name,
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         3,
@@ -84,8 +84,8 @@ val foodDtos = listOf(
         12.99,
         4.0,
         2790,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         4,
@@ -94,8 +94,8 @@ val foodDtos = listOf(
         14.99,
         4.3,
         1994,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         id = 5,
@@ -104,8 +104,8 @@ val foodDtos = listOf(
         price = 9.99,
         rating = 4.1,
         orderCount = 905,
-        type = FoodType.Sandwich.name,
-        imageUrl = getRandomImageUrl(FoodType.Sandwich)
+        category = FoodCategory.Sandwich.name,
+        imageUrl = getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         id = 6,
@@ -114,8 +114,8 @@ val foodDtos = listOf(
         price = 5.99,
         rating = 4.6,
         orderCount = 652,
-        type = FoodType.Drink.name,
-        imageUrl = getRandomImageUrl(FoodType.Drink)
+        category = FoodCategory.Drink.name,
+        imageUrl = getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         id = 7,
@@ -124,8 +124,8 @@ val foodDtos = listOf(
         price = 4.99,
         rating = 4.8,
         orderCount = 1118,
-        type = FoodType.Dessert.name,
-        imageUrl = getRandomImageUrl(FoodType.Dessert)
+        category = FoodCategory.Dessert.name,
+        imageUrl = getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         id = 8,
@@ -134,8 +134,8 @@ val foodDtos = listOf(
         price = 3.49,
         rating = 3.9,
         orderCount = 438,
-        type = FoodType.Snack.name,
-        imageUrl = getRandomImageUrl(FoodType.Snack)
+        category = FoodCategory.Snack.name,
+        imageUrl = getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         id = 9,
@@ -144,8 +144,8 @@ val foodDtos = listOf(
         price = 6.99,
         rating = 4.3,
         orderCount = 771,
-        type = FoodType.Sandwich.name,
-        imageUrl = getRandomImageUrl(FoodType.Sandwich)
+        category = FoodCategory.Sandwich.name,
+        imageUrl = getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         id = 10,
@@ -154,8 +154,8 @@ val foodDtos = listOf(
         price = 4.49,
         rating = 4.4,
         orderCount = 1430,
-        type = FoodType.Drink.name,
-        imageUrl = getRandomImageUrl(FoodType.Drink)
+        category = FoodCategory.Drink.name,
+        imageUrl = getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         11,
@@ -164,8 +164,8 @@ val foodDtos = listOf(
         8.99,
         4.2,
         987,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         12,
@@ -174,8 +174,8 @@ val foodDtos = listOf(
         7.49,
         4.8,
         672,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         13,
@@ -184,8 +184,8 @@ val foodDtos = listOf(
         11.99,
         4.3,
         812,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         14,
@@ -194,8 +194,8 @@ val foodDtos = listOf(
         15.99,
         4.0,
         1308,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         15,
@@ -204,8 +204,8 @@ val foodDtos = listOf(
         11.99,
         4.5,
         1015,
-        FoodType.Burger.name,
-        getRandomImageUrl(FoodType.Burger)
+        FoodCategory.Burger.name,
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         16,
@@ -214,8 +214,8 @@ val foodDtos = listOf(
         6.99,
         4.6,
         473,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         17,
@@ -224,8 +224,8 @@ val foodDtos = listOf(
         4.99,
         4.9,
         512,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         18,
@@ -234,8 +234,8 @@ val foodDtos = listOf(
         4.49,
         4.5,
         854,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         19,
@@ -244,8 +244,8 @@ val foodDtos = listOf(
         12.49,
         4.2,
         776,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         20,
@@ -254,8 +254,8 @@ val foodDtos = listOf(
         10.99,
         4.4,
         923,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         21,
@@ -264,8 +264,8 @@ val foodDtos = listOf(
         11.99,
         4.6,
         650,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         22,
@@ -274,8 +274,8 @@ val foodDtos = listOf(
         8.99,
         4.4,
         820,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         23,
@@ -284,8 +284,8 @@ val foodDtos = listOf(
         5.49,
         4.8,
         451,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         24,
@@ -294,8 +294,8 @@ val foodDtos = listOf(
         4.49,
         4.6,
         622,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         25,
@@ -304,8 +304,8 @@ val foodDtos = listOf(
         9.49,
         4.5,
         589,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         26,
@@ -314,8 +314,8 @@ val foodDtos = listOf(
         10.99,
         4.7,
         713,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         27,
@@ -324,8 +324,8 @@ val foodDtos = listOf(
         9.99,
         4.3,
         844,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         28,
@@ -334,8 +334,8 @@ val foodDtos = listOf(
         7.99,
         4.9,
         426,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         29,
@@ -344,8 +344,8 @@ val foodDtos = listOf(
         12.99,
         4.2,
         641,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         30,
@@ -354,8 +354,8 @@ val foodDtos = listOf(
         16.99,
         4.1,
         1124,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         31,
@@ -364,8 +364,8 @@ val foodDtos = listOf(
         5.99,
         4.1,
         1015,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         32,
@@ -374,8 +374,8 @@ val foodDtos = listOf(
         6.99,
         4.4,
         744,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         33,
@@ -384,8 +384,8 @@ val foodDtos = listOf(
         6.49,
         4.8,
         456,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         34,
@@ -394,8 +394,8 @@ val foodDtos = listOf(
         8.99,
         4.6,
         687,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         35,
@@ -404,8 +404,8 @@ val foodDtos = listOf(
         9.99,
         4.5,
         628,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         36,
@@ -414,8 +414,8 @@ val foodDtos = listOf(
         11.99,
         4.4,
         890,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         37,
@@ -424,8 +424,8 @@ val foodDtos = listOf(
         10.99,
         4.3,
         762,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         38,
@@ -434,8 +434,8 @@ val foodDtos = listOf(
         6.99,
         4.7,
         591,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         39,
@@ -444,8 +444,8 @@ val foodDtos = listOf(
         7.99,
         4.6,
         422,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         40,
@@ -454,8 +454,8 @@ val foodDtos = listOf(
         12.99,
         4.2,
         923,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         41,
@@ -464,8 +464,8 @@ val foodDtos = listOf(
         12.49,
         4.4,
         854,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         42,
@@ -474,8 +474,8 @@ val foodDtos = listOf(
         11.99,
         4.3,
         798,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         43,
@@ -484,8 +484,8 @@ val foodDtos = listOf(
         4.99,
         4.5,
         1204,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         44,
@@ -494,8 +494,8 @@ val foodDtos = listOf(
         7.49,
         4.2,
         867,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         45,
@@ -504,8 +504,8 @@ val foodDtos = listOf(
         6.99,
         4.3,
         910,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         46,
@@ -514,8 +514,8 @@ val foodDtos = listOf(
         12.99,
         4.5,
         753,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         47,
@@ -524,8 +524,8 @@ val foodDtos = listOf(
         10.99,
         4.4,
         829,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         48,
@@ -534,8 +534,8 @@ val foodDtos = listOf(
         4.99,
         4.6,
         773,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         49,
@@ -544,8 +544,8 @@ val foodDtos = listOf(
         11.99,
         4.3,
         678,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         50,
@@ -554,8 +554,8 @@ val foodDtos = listOf(
         7.99,
         4.8,
         532,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         51,
@@ -564,8 +564,8 @@ val foodDtos = listOf(
         18.99,
         4.5,
         510,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         52,
@@ -574,8 +574,8 @@ val foodDtos = listOf(
         14.99,
         4.3,
         876,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         53,
@@ -584,8 +584,8 @@ val foodDtos = listOf(
         15.99,
         4.6,
         699,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         54,
@@ -594,8 +594,8 @@ val foodDtos = listOf(
         16.99,
         4.4,
         731,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         55,
@@ -604,8 +604,8 @@ val foodDtos = listOf(
         13.99,
         4.3,
         908,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         56,
@@ -614,8 +614,8 @@ val foodDtos = listOf(
         12.99,
         4.5,
         613,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         57,
@@ -624,8 +624,8 @@ val foodDtos = listOf(
         10.99,
         4.4,
         821,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         58,
@@ -634,8 +634,8 @@ val foodDtos = listOf(
         13.99,
         4.7,
         780,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         59,
@@ -644,8 +644,8 @@ val foodDtos = listOf(
         8.99,
         4.3,
         923,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         60,
@@ -654,8 +654,8 @@ val foodDtos = listOf(
         16.99,
         4.5,
         620,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         61,
@@ -664,8 +664,8 @@ val foodDtos = listOf(
         9.99,
         4.2,
         1010,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         62,
@@ -674,8 +674,8 @@ val foodDtos = listOf(
         9.99,
         4.3,
         840,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         63,
@@ -684,8 +684,8 @@ val foodDtos = listOf(
         6.99,
         4.9,
         510,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         64,
@@ -694,8 +694,8 @@ val foodDtos = listOf(
         7.99,
         4.6,
         542,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         65,
@@ -704,8 +704,8 @@ val foodDtos = listOf(
         7.49,
         4.7,
         418,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         66,
@@ -714,8 +714,8 @@ val foodDtos = listOf(
         6.99,
         4.5,
         619,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         67,
@@ -724,8 +724,8 @@ val foodDtos = listOf(
         3.99,
         4.4,
         829,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         68,
@@ -734,8 +734,8 @@ val foodDtos = listOf(
         3.49,
         4.3,
         934,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         69,
@@ -744,8 +744,8 @@ val foodDtos = listOf(
         3.99,
         4.0,
         1072,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         70,
@@ -754,8 +754,8 @@ val foodDtos = listOf(
         2.99,
         4.7,
         512,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         71,
@@ -764,8 +764,8 @@ val foodDtos = listOf(
         19.99,
         4.6,
         473,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         72,
@@ -774,8 +774,8 @@ val foodDtos = listOf(
         13.99,
         4.4,
         955,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         73,
@@ -784,8 +784,8 @@ val foodDtos = listOf(
         17.99,
         4.5,
         530,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         74,
@@ -794,8 +794,8 @@ val foodDtos = listOf(
         12.99,
         4.4,
         953,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         75,
@@ -804,8 +804,8 @@ val foodDtos = listOf(
         13.99,
         4.3,
         816,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         76,
@@ -814,8 +814,8 @@ val foodDtos = listOf(
         14.99,
         4.4,
         743,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         77,
@@ -824,8 +824,8 @@ val foodDtos = listOf(
         12.99,
         4.6,
         695,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         78,
@@ -834,8 +834,8 @@ val foodDtos = listOf(
         16.99,
         4.5,
         628,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         79,
@@ -844,8 +844,8 @@ val foodDtos = listOf(
         9.99,
         4.5,
         732,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         80,
@@ -854,8 +854,8 @@ val foodDtos = listOf(
         13.99,
         4.4,
         780,
-        FoodType.Sandwich.name,
-        getRandomImageUrl(FoodType.Sandwich)
+        FoodCategory.Sandwich.name,
+        getRandomImageUrl(FoodCategory.Sandwich)
     ),
     FoodDto(
         81,
@@ -864,8 +864,8 @@ val foodDtos = listOf(
         7.99,
         4.3,
         910,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         82,
@@ -874,8 +874,8 @@ val foodDtos = listOf(
         7.99,
         4.2,
         876,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         83,
@@ -884,8 +884,8 @@ val foodDtos = listOf(
         6.99,
         4.6,
         542,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         84,
@@ -894,8 +894,8 @@ val foodDtos = listOf(
         8.99,
         4.6,
         705,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         85,
@@ -904,8 +904,8 @@ val foodDtos = listOf(
         8.99,
         4.5,
         721,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         86,
@@ -914,8 +914,8 @@ val foodDtos = listOf(
         9.99,
         4.4,
         829,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         87,
@@ -924,8 +924,8 @@ val foodDtos = listOf(
         9.99,
         4.5,
         854,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         88,
@@ -934,8 +934,8 @@ val foodDtos = listOf(
         9.99,
         4.3,
         799,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         89,
@@ -944,8 +944,8 @@ val foodDtos = listOf(
         3.99,
         4.5,
         923,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         90,
@@ -954,8 +954,8 @@ val foodDtos = listOf(
         7.99,
         4.7,
         591,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         91,
@@ -964,8 +964,8 @@ val foodDtos = listOf(
         6.99,
         4.6,
         612,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         92,
@@ -974,8 +974,8 @@ val foodDtos = listOf(
         9.99,
         4.3,
         852,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         93,
@@ -984,8 +984,8 @@ val foodDtos = listOf(
         10.99,
         4.4,
         790,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         94,
@@ -994,8 +994,8 @@ val foodDtos = listOf(
         8.99,
         4.5,
         837,
-        FoodType.Snack.name,
-        getRandomImageUrl(FoodType.Snack)
+        FoodCategory.Snack.name,
+        getRandomImageUrl(FoodCategory.Snack)
     ),
     FoodDto(
         95,
@@ -1004,8 +1004,8 @@ val foodDtos = listOf(
         6.99,
         4.7,
         620,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         96,
@@ -1014,8 +1014,8 @@ val foodDtos = listOf(
         6.49,
         4.7,
         556,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         97,
@@ -1024,8 +1024,8 @@ val foodDtos = listOf(
         4.99,
         4.6,
         732,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         98,
@@ -1034,8 +1034,8 @@ val foodDtos = listOf(
         4.99,
         4.4,
         678,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         99,
@@ -1044,8 +1044,8 @@ val foodDtos = listOf(
         3.99,
         4.5,
         712,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         100,
@@ -1054,8 +1054,8 @@ val foodDtos = listOf(
         4.49,
         4.3,
         695,
-        FoodType.Drink.name,
-        getRandomImageUrl(FoodType.Drink)
+        FoodCategory.Drink.name,
+        getRandomImageUrl(FoodCategory.Drink)
     ),
     FoodDto(
         101,
@@ -1064,7 +1064,7 @@ val foodDtos = listOf(
         8.49,
         4.2,
         740,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1074,7 +1074,7 @@ val foodDtos = listOf(
         9.99,
         4.0,
         980,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1084,7 +1084,7 @@ val foodDtos = listOf(
         9.49,
         4.3,
         850,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1094,7 +1094,7 @@ val foodDtos = listOf(
         8.99,
         4.1,
         690,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1104,7 +1104,7 @@ val foodDtos = listOf(
         8.99,
         3.9,
         650,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1114,7 +1114,7 @@ val foodDtos = listOf(
         8.49,
         4.6,
         520,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1124,7 +1124,7 @@ val foodDtos = listOf(
         7.99,
         4.4,
         610,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1134,7 +1134,7 @@ val foodDtos = listOf(
         9.99,
         4.3,
         720,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1144,7 +1144,7 @@ val foodDtos = listOf(
         10.49,
         4.0,
         780,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1154,7 +1154,7 @@ val foodDtos = listOf(
         9.49,
         4.5,
         620,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1164,7 +1164,7 @@ val foodDtos = listOf(
         8.99,
         4.4,
         710,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1174,7 +1174,7 @@ val foodDtos = listOf(
         9.99,
         4.0,
         790,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1184,7 +1184,7 @@ val foodDtos = listOf(
         10.49,
         3.8,
         1050,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1194,7 +1194,7 @@ val foodDtos = listOf(
         9.49,
         4.2,
         890,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1204,7 +1204,7 @@ val foodDtos = listOf(
         9.49,
         3.9,
         840,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1214,7 +1214,7 @@ val foodDtos = listOf(
         8.99,
         4.3,
         640,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1224,7 +1224,7 @@ val foodDtos = listOf(
         10.49,
         4.1,
         920,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1234,7 +1234,7 @@ val foodDtos = listOf(
         9.99,
         4.6,
         680,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1244,7 +1244,7 @@ val foodDtos = listOf(
         9.49,
         4.0,
         630,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1254,7 +1254,7 @@ val foodDtos = listOf(
         10.49,
         3.5,
         950,
-        FoodType.Burger.name,
+        FoodCategory.Burger.name,
         "Placeholder_Burger_Image_URL"
     ),
     FoodDto(
@@ -1264,8 +1264,8 @@ val foodDtos = listOf(
         8.49,
         4.8,
         680,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         122,
@@ -1274,8 +1274,8 @@ val foodDtos = listOf(
         8.99,
         4.6,
         450,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         123,
@@ -1284,8 +1284,8 @@ val foodDtos = listOf(
         7.99,
         4.5,
         490,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         124,
@@ -1294,8 +1294,8 @@ val foodDtos = listOf(
         7.49,
         4.5,
         520,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         125,
@@ -1304,8 +1304,8 @@ val foodDtos = listOf(
         7.49,
         4.3,
         610,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         126,
@@ -1314,8 +1314,8 @@ val foodDtos = listOf(
         7.99,
         4.1,
         420,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         127,
@@ -1324,8 +1324,8 @@ val foodDtos = listOf(
         6.99,
         4.4,
         640,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         128,
@@ -1334,8 +1334,8 @@ val foodDtos = listOf(
         7.99,
         4.6,
         710,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         129,
@@ -1344,8 +1344,8 @@ val foodDtos = listOf(
         7.49,
         4.2,
         380,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         130,
@@ -1354,8 +1354,8 @@ val foodDtos = listOf(
         8.49,
         4.0,
         730,
-        FoodType.Dessert.name,
-        getRandomImageUrl(FoodType.Dessert)
+        FoodCategory.Dessert.name,
+        getRandomImageUrl(FoodCategory.Dessert)
     ),
     FoodDto(
         131,
@@ -1364,8 +1364,8 @@ val foodDtos = listOf(
         15.99,
         4.1,
         2215,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         132,
@@ -1374,8 +1374,8 @@ val foodDtos = listOf(
         12.99,
         4.6,
         1540,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         133,
@@ -1384,8 +1384,8 @@ val foodDtos = listOf(
         14.99,
         4.0,
         1850,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         134,
@@ -1394,8 +1394,8 @@ val foodDtos = listOf(
         13.99,
         3.9,
         1720,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         135,
@@ -1404,8 +1404,8 @@ val foodDtos = listOf(
         13.99,
         4.4,
         1640,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         136,
@@ -1414,8 +1414,8 @@ val foodDtos = listOf(
         13.99,
         4.5,
         1680,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         137,
@@ -1424,8 +1424,8 @@ val foodDtos = listOf(
         14.99,
         4.2,
         1810,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         138,
@@ -1434,8 +1434,8 @@ val foodDtos = listOf(
         13.99,
         4.4,
         1750,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         139,
@@ -1444,8 +1444,8 @@ val foodDtos = listOf(
         13.99,
         4.7,
         1790,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         140,
@@ -1454,8 +1454,8 @@ val foodDtos = listOf(
         14.99,
         4.3,
         1840,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         141,
@@ -1464,8 +1464,8 @@ val foodDtos = listOf(
         14.99,
         4.4,
         1720,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         142,
@@ -1474,8 +1474,8 @@ val foodDtos = listOf(
         15.99,
         4.2,
         1780,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         143,
@@ -1484,8 +1484,8 @@ val foodDtos = listOf(
         14.99,
         3.8,
         2100,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         144,
@@ -1494,8 +1494,8 @@ val foodDtos = listOf(
         14.99,
         3.9,
         1950,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         145,
@@ -1504,8 +1504,8 @@ val foodDtos = listOf(
         16.99,
         4.0,
         2500,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         146,
@@ -1514,8 +1514,8 @@ val foodDtos = listOf(
         15.99,
         4.6,
         1640,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         147,
@@ -1524,8 +1524,8 @@ val foodDtos = listOf(
         14.99,
         4.5,
         1590,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         148,
@@ -1534,8 +1534,8 @@ val foodDtos = listOf(
         12.99,
         4.3,
         1530,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         149,
@@ -1544,8 +1544,8 @@ val foodDtos = listOf(
         14.99,
         4.1,
         2050,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
     FoodDto(
         150,
@@ -1554,7 +1554,7 @@ val foodDtos = listOf(
         14.99,
         4.0,
         2010,
-        FoodType.Pizza.name,
-        getRandomImageUrl(FoodType.Pizza)
+        FoodCategory.Pizza.name,
+        getRandomImageUrl(FoodCategory.Pizza)
     ),
 )

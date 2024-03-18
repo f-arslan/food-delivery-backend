@@ -9,7 +9,7 @@ object Foods : Table() {
     val price = double("price")
     val rating = double("rating")
     val orderCount = integer("orderCount")
-    val type = varchar("type", 128)
+    val category = varchar("type", 128)
     val imageUrl = varchar("imageUrl", 256)
 
     override val primaryKey = PrimaryKey(id)
