@@ -1,6 +1,7 @@
 package com.example.plugins
 
 import com.example.fake.foodDtos
+import com.example.route.userRoute
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -34,4 +35,6 @@ fun Application.configureRouting() {
             call.respond(stock)
         }
     }
+
+    userRoute()
 }
