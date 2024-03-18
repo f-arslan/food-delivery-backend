@@ -1,1 +1,1 @@
-rootProject.name = "food-api"
+rootProject.name = "food-delivery-backend"

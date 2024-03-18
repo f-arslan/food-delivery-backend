@@ -9,15 +9,16 @@ enum class FoodType {
 @Serializable
 data class UserDto(
     val id: Int,
+    val userId: String,
     val fullName: String,
     val email: String,
     val password: String,
-    val phoneNumber: String,
-    val occupation: String,
-    val employer: String,
-    val country: String,
-    val latitude: Double,
-    val longitude: Double,
+    val phoneNumber: String? = null,
+    val occupation: String? = null,
+    val employer: String? = null,
+    val country: String? = null,
+    val latitude: Double? = null,
+    val longitude: Double? = null
 )
 
 @Serializable

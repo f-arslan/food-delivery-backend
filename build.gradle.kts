@@ -43,4 +43,6 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgresql_version")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinx_datetime_version")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
+    implementation("io.ktor:ktor-server-request-validation:$ktor_version")
+    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
 }

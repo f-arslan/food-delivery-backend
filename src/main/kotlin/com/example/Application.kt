@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.plugins.*
+import com.example.plugin.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -18,5 +18,6 @@ fun Application.module() {
     configureDatabase()
     configureSerialization()
     configureRouting()
-    configureUserRouting()
+    configureValidation()
+    configureStatusPages()
 }
