@@ -22,6 +22,7 @@ object DatabaseModule {
         }
     }
 
-    suspend fun <T> dbQuery(block: suspend () -> T): T =
+    suspend fun <T> dbQuery(block: suspend () -> T): Result<T> = runCatching {
         newSuspendedTransaction(Dispatchers.IO) { block() }
+    }
 }
