@@ -1,14 +1,12 @@
 package com.example.service.impl
 
 import com.example.dto.FoodDto
+import com.example.fake.foodDtos
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.FoodService
 import com.example.table.Foods
 import com.example.util.ext.toFoodDto
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.lowerCase
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.*
 
 class FoodServiceImpl : FoodService {
     override suspend fun getFoodDetail(foodId: Int): Result<FoodDto> = dbQuery {

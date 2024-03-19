@@ -14,21 +14,21 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
 
 class OrderServiceImpl : OrderService {
-    override suspend fun getActiveOrder(userId: UUID): Result<GetActiveOrderDto> = dbQuery {
+    override suspend fun getActiveOrder(userId: UUID): Result<GetOrderWithItemsDto> = dbQuery {
         val order = Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
         }.singleOrNull() ?: throw Exception("No active order found")
 
         val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
-        GetActiveOrderDto(order.toOrderDto(), items)
+        GetOrderWithItemsDto(order.toOrderDto(), items)
     }
 
-    override suspend fun getActiveOrderFlow(userId: UUID): Result<Flow<GetActiveOrderDto>> = dbQuery {
+    override suspend fun getActiveOrderFlow(userId: UUID): Result<Flow<GetOrderWithItemsDto>> = dbQuery {
         Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
         }.map { order ->
             val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
-            GetActiveOrderDto(order.toOrderDto(), items)
+            GetOrderWithItemsDto(order.toOrderDto(), items)
         }.asFlow()
     }
 
@@ -144,6 +144,21 @@ class OrderServiceImpl : OrderService {
         }
 
         true
+    }
+
+    override suspend fun getAllOrders(userId: UUID): Result<List<GetOrderWithItemsDto>> = dbQuery {
+        val orders = Orders.select { Orders.userId eq userId }.map { order ->
+            val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
+            GetOrderWithItemsDto(order.toOrderDto(), items)
+        }
+        orders
+    }
+
+    override suspend fun getAllOrderFlow(userId: UUID): Result<Flow<GetOrderWithItemsDto>> = dbQuery {
+        Orders.select { Orders.userId eq userId }.map { order ->
+            val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
+            GetOrderWithItemsDto(order.toOrderDto(), items)
+        }.asFlow()
     }
 
     private fun createOrder(userId: UUID) {
