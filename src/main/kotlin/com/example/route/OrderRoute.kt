@@ -25,11 +25,12 @@ fun Application.orderRoute() {
             )
         }
 
-        post("/orders/items/{orderItemId}") {
-            val itemId = call.parameters["orderItemId"]?.toIntOrNull() ?: run {
+        post("/orders/items/{itemId}") {
+            val itemId = call.parameters["itemId"]?.toIntOrNull() ?: run {
                 call.respond(HttpStatusCode.BadRequest, INVALID_ORDER_ITEM_ID)
                 return@post
             }
+
             val quantity = call.receive<Int>()
             orderService.updateItemInOrder(itemId, quantity).fold(
                 onSuccess = { item -> call.respond(HttpStatusCode.OK, item) },
