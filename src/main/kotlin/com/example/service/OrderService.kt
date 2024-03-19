@@ -12,7 +12,8 @@ interface OrderService {
     suspend fun updateItemInOrder(itemId: Int, quantity: Int): Result<Boolean>
     suspend fun deleteCurrentOrder(userId: UUID): Result<Boolean>
     suspend fun deleteOrder(userId: UUID, orderId: Int): Result<Boolean>
-
+    suspend fun completeCurrentOrder(userId: UUID): Result<Boolean>
+    suspend fun cancelOrder(userId: UUID, orderId: Int): Result<Boolean>
     companion object {
         val orderService: OrderService by lazy { OrderServiceImpl() }
     }

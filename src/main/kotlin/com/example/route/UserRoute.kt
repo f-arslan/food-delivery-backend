@@ -6,6 +6,7 @@ import com.example.dto.UserUpdateLocationDto
 import com.example.service.UserService.Companion.userService
 import com.example.util.Constants.GENERIC_ERROR
 import com.example.util.Constants.INVALID_USER_ID
+import com.example.util.ext.getValueFromParameters
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -42,13 +43,7 @@ fun Application.userRoute() {
         }
 
         get("/profile/{userId}") {
-            val userId = call.parameters["userId"]?.let { UUID.fromString(it) } ?: run {
-                call.respond(
-                    status = HttpStatusCode.BadRequest,
-                    message = INVALID_USER_ID
-                )
-                return@get
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
             userService.getProfile(userId).fold(
                 onSuccess = { userDto -> call.respond(userDto) },
                 onFailure = { throwable ->
@@ -61,13 +56,7 @@ fun Application.userRoute() {
         }
 
         get("/profile/{userId}/flow") {
-            val userId = call.parameters["userId"]?.let { UUID.fromString(it) } ?: run {
-                call.respond(
-                    status = HttpStatusCode.BadRequest,
-                    message = INVALID_USER_ID
-                )
-                return@get
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
             userService.getProfileFlow(userId).fold(
                 onSuccess = { userDtoFlow -> call.respond(userDtoFlow) },
                 onFailure = { throwable ->
@@ -80,13 +69,7 @@ fun Application.userRoute() {
         }
 
         post("/profile/{userId}/location") {
-            val userId = call.parameters["userId"]?.let { UUID.fromString(it) } ?: run {
-                call.respond(
-                    status = HttpStatusCode.BadRequest,
-                    message = INVALID_USER_ID
-                )
-                return@post
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
             val userUpdateLocationDto = call.receive<UserUpdateLocationDto>()
             userService.updateUserLocation(userId, userUpdateLocationDto).fold(
                 onSuccess = { call.respond(HttpStatusCode.OK) },

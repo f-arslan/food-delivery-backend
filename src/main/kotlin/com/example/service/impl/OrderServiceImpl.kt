@@ -113,6 +113,30 @@ class OrderServiceImpl : OrderService {
         true
     }
 
+    override suspend fun completeCurrentOrder(userId: UUID): Result<Boolean> = dbQuery {
+        val order = Orders.select {
+            (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
+        }.singleOrNull() ?: throw Exception("No active order found")
+
+        Orders.update({ Orders.id eq order[Orders.id] }) {
+            it[orderStatus] = OrderStatus.Finished
+        }
+
+        true
+    }
+
+    override suspend fun cancelOrder(userId: UUID, orderId: Int): Result<Boolean> = dbQuery {
+        val order = Orders.select {
+            (Orders.userId eq userId) and (Orders.id eq orderId)
+        }.singleOrNull() ?: throw Exception("Order not found")
+
+        Orders.update({ Orders.id eq order[Orders.id] }) {
+            it[orderStatus] = OrderStatus.Cancelled
+        }
+
+        true
+    }
+
     private fun createOrder(userId: UUID) {
         Orders.insert {
             it[Orders.userId] = userId

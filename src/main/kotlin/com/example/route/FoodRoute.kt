@@ -5,6 +5,7 @@ import com.example.service.FoodService.Companion.foodService
 import com.example.util.Constants.GENERIC_ERROR
 import com.example.util.Constants.INVALID_FOOD_ID
 import com.example.util.Constants.INVALID_SEARCH_QUERY
+import com.example.util.ext.getValueFromParameters
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -13,13 +14,7 @@ import io.ktor.server.routing.*
 fun Application.foodRoute() {
     routing {
         get("/foods/{foodId}") {
-            val foodId = call.parameters["foodId"]?.toIntOrNull() ?: run {
-                call.respondText(
-                    text = INVALID_FOOD_ID,
-                    status = HttpStatusCode.BadRequest
-                )
-                return@get
-            }
+            val foodId = call.getValueFromParameters("foodId", String::toInt)
             foodService.getFoodDetail(foodId).fold(
                 onSuccess = { foodDto -> call.respond(foodDto) },
                 onFailure = { throwable ->
@@ -90,12 +85,6 @@ fun Application.foodRoute() {
         get("fake/foods/stock") {
             val stock = foodDtos.groupBy { it.category }.mapValues { it.value.size }
             call.respond(stock)
-        }
-
-        get("fake/foods/saveFood") {
-            foodDtos.forEach {
-                foodService.registerFood(it)
-            }
         }
     }
 }

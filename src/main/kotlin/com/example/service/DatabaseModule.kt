@@ -9,13 +9,19 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.net.URI
 
 
 object DatabaseModule {
     fun init() {
-        val driverClassName = "org.postgresql.Driver"
-        val jdbcURL = System.getenv("JDBC_URL") ?: "DEFAULT_JDBC_URL"
-        val database = Database.connect(jdbcURL, driverClassName)
+        val databaseUrl = System.getenv("DATABASE_URL") ?: "DEFAULT_DATABASE_URL"
+        val dbUri = URI(databaseUrl)
+
+        val username = dbUri.userInfo.split(":")[0]
+        val password = dbUri.userInfo.split(":")[1]
+        val dbUrl = "jdbc:postgresql://" + dbUri.host + ':' + dbUri.port + dbUri.path + "?sslmode=require"
+
+        val database = Database.connect(dbUrl, driver = "org.postgresql.Driver", user = username, password = password)
         transaction(database) {
             SchemaUtils.create(Users)
             SchemaUtils.create(Foods)

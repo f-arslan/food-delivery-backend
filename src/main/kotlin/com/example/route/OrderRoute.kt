@@ -2,22 +2,18 @@ package com.example.route
 
 import com.example.dto.FoodDto
 import com.example.service.OrderService.Companion.orderService
-import com.example.util.Constants.INVALID_ORDER_ITEM_ID
-import com.example.util.Constants.INVALID_USER_ID
+import com.example.util.ext.getValueFromParameters
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.util.UUID
+import java.util.*
 
 fun Application.orderRoute() {
     routing {
         post("/orders/{userId}/items") {
-            val userId = call.parameters["userId"].let { UUID.fromString(it) } ?: run {
-                call.respond(HttpStatusCode.BadRequest, INVALID_USER_ID)
-                return@post
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
             val foodDto = call.receive<FoodDto>()
             orderService.addFoodToOrder(userId, foodDto, 1).fold(
                 onSuccess = { orderId -> call.respond(HttpStatusCode.OK, orderId) },
@@ -26,11 +22,7 @@ fun Application.orderRoute() {
         }
 
         post("/orders/items/{itemId}") {
-            val itemId = call.parameters["itemId"]?.toIntOrNull() ?: run {
-                call.respond(HttpStatusCode.BadRequest, INVALID_ORDER_ITEM_ID)
-                return@post
-            }
-
+            val itemId = call.getValueFromParameters("itemId", String::toInt)
             val quantity = call.receive<Int>()
             orderService.updateItemInOrder(itemId, quantity).fold(
                 onSuccess = { item -> call.respond(HttpStatusCode.OK, item) },
@@ -39,21 +31,23 @@ fun Application.orderRoute() {
         }
 
         get("/orders/{userId}") {
-            val userId = call.parameters["userId"].let { UUID.fromString(it) } ?: run {
-                call.respond(HttpStatusCode.BadRequest, INVALID_USER_ID)
-                return@get
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
             orderService.getActiveOrder(userId).fold(
                 onSuccess = { getActiveOrderDto -> call.respond(getActiveOrderDto) },
                 onFailure = { call.respond(HttpStatusCode.NotFound, it.message ?: "No active order found") }
             )
         }
 
+        get("/orders/{userId}/complete") {
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
+            orderService.completeCurrentOrder(userId).fold(
+                onSuccess = { call.respond(HttpStatusCode.OK, true) },
+                onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
+            )
+        }
+
         delete("/orders/{userId}/current") {
-            val userId = call.parameters["userId"].let { UUID.fromString(it) } ?: run {
-                call.respond(HttpStatusCode.BadRequest, INVALID_USER_ID)
-                return@delete
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
             orderService.deleteCurrentOrder(userId).fold(
                 onSuccess = { call.respond(HttpStatusCode.OK, true) },
                 onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
@@ -61,14 +55,8 @@ fun Application.orderRoute() {
         }
 
         delete("/orders/{userId}/{orderId}") {
-            val userId = call.parameters["userId"].let { UUID.fromString(it) } ?: run {
-                call.respond(HttpStatusCode.BadRequest, INVALID_USER_ID)
-                return@delete
-            }
-            val orderId = call.parameters["orderId"]?.toIntOrNull() ?: run {
-                call.respond(HttpStatusCode.BadRequest, "Invalid order id")
-                return@delete
-            }
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
+            val orderId = call.getValueFromParameters("orderId", String::toInt)
             orderService.deleteOrder(userId, orderId).fold(
                 onSuccess = { call.respond(HttpStatusCode.OK, true) },
                 onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
