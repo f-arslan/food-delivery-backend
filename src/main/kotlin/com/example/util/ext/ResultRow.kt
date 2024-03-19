@@ -1,9 +1,11 @@
 package com.example.util.ext
 
 import com.example.dto.FoodDto
+import com.example.dto.ItemDto
 import com.example.dto.OrderDto
 import com.example.dto.UserDto
 import com.example.table.Foods
+import com.example.table.Items
 import com.example.table.Orders
 import com.example.table.Users
 import kotlinx.datetime.toKotlinInstant
@@ -42,4 +44,12 @@ fun ResultRow.toUserDto(): UserDto = UserDto(
     country = this[Users.country],
     latitude = this[Users.latitude],
     longitude = this[Users.longitude]
+)
+
+fun ResultRow.toItemDto(): ItemDto = ItemDto(
+    id = this[Items.id],
+    orderId = this[Items.orderId],
+    foodId = this[Items.foodId],
+    quantity = this[Items.quantity],
+    price = this[Items.price].toDouble()
 )

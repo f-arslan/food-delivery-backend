@@ -32,7 +32,7 @@ fun Application.orderRoute() {
             }
             val quantity = call.receive<Int>()
             orderService.updateItemInOrder(itemId, quantity).fold(
-                onSuccess = { call.respond(HttpStatusCode.OK) },
+                onSuccess = { item -> call.respond(HttpStatusCode.OK, item) },
                 onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
             )
         }
@@ -43,7 +43,7 @@ fun Application.orderRoute() {
                 return@get
             }
             orderService.getActiveOrder(userId).fold(
-                onSuccess = { orderDto -> call.respond(orderDto) },
+                onSuccess = { getActiveOrderDto -> call.respond(getActiveOrderDto) },
                 onFailure = { call.respond(HttpStatusCode.NotFound, it.message ?: "No active order found") }
             )
         }

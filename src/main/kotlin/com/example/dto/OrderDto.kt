@@ -2,7 +2,10 @@ package com.example.dto
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import java.math.BigDecimal
+
+enum class OrderStatus {
+    Pending, Started, Processing, Finished, Cancelled
+}
 
 @Serializable
 data class OrderDto(
@@ -14,6 +17,8 @@ data class OrderDto(
     val paymentDetails: String? = null,
 )
 
-enum class OrderStatus {
-    Pending, Started, Processing, Finished, Cancelled
-}
+@Serializable
+data class GetActiveOrderDto(
+    val order: OrderDto,
+    val items: List<ItemDto>
+)
