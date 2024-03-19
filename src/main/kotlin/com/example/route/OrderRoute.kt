@@ -38,6 +38,22 @@ fun Application.orderRoute() {
             )
         }
 
+        get("/orders/{userId}/all") {
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
+            orderService.getAllOrders(userId).fold(
+                onSuccess = { orders -> call.respond(orders) },
+                onFailure = { call.respond(HttpStatusCode.NotFound, it.message ?: "No orders found") }
+            )
+        }
+
+        get("/orders/{userId}/all/flow") {
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
+            orderService.getAllOrderFlow(userId).fold(
+                onSuccess = { flow -> call.respond(flow) },
+                onFailure = { call.respond(HttpStatusCode.NotFound, it.message ?: "No orders found") }
+            )
+        }
+
         get("/orders/{userId}/order/flow") {
             val userId = call.getValueFromParameters("userId", UUID::fromString)
             orderService.getActiveOrderFlow(userId).fold(

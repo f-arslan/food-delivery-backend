@@ -18,7 +18,7 @@ data class OrderDto(
 )
 
 @Serializable
-data class GetActiveOrderDto(
+data class GetOrderWithItemsDto(
     val order: OrderDto,
     val items: List<ItemDto>
 )

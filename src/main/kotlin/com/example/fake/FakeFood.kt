@@ -1065,7 +1065,7 @@ val foodDtos = listOf(
         4.2,
         740,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         102,
@@ -1075,7 +1075,7 @@ val foodDtos = listOf(
         4.0,
         980,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         103,
@@ -1085,7 +1085,7 @@ val foodDtos = listOf(
         4.3,
         850,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         104,
@@ -1095,7 +1095,7 @@ val foodDtos = listOf(
         4.1,
         690,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         105,
@@ -1105,7 +1105,7 @@ val foodDtos = listOf(
         3.9,
         650,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         106,
@@ -1115,7 +1115,7 @@ val foodDtos = listOf(
         4.6,
         520,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         107,
@@ -1125,7 +1125,7 @@ val foodDtos = listOf(
         4.4,
         610,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         108,
@@ -1135,7 +1135,7 @@ val foodDtos = listOf(
         4.3,
         720,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         109,
@@ -1145,7 +1145,7 @@ val foodDtos = listOf(
         4.0,
         780,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         110,
@@ -1155,7 +1155,7 @@ val foodDtos = listOf(
         4.5,
         620,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         111,
@@ -1165,7 +1165,7 @@ val foodDtos = listOf(
         4.4,
         710,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         112,
@@ -1175,7 +1175,7 @@ val foodDtos = listOf(
         4.0,
         790,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         113,
@@ -1185,7 +1185,7 @@ val foodDtos = listOf(
         3.8,
         1050,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         114,
@@ -1195,7 +1195,7 @@ val foodDtos = listOf(
         4.2,
         890,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         115,
@@ -1205,7 +1205,7 @@ val foodDtos = listOf(
         3.9,
         840,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         116,
@@ -1215,7 +1215,7 @@ val foodDtos = listOf(
         4.3,
         640,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         117,
@@ -1225,7 +1225,7 @@ val foodDtos = listOf(
         4.1,
         920,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         118,
@@ -1235,7 +1235,7 @@ val foodDtos = listOf(
         4.6,
         680,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         119,
@@ -1245,7 +1245,7 @@ val foodDtos = listOf(
         4.0,
         630,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         120,
@@ -1255,7 +1255,7 @@ val foodDtos = listOf(
         3.5,
         950,
         FoodCategory.Burger.name,
-        "Placeholder_Burger_Image_URL"
+        getRandomImageUrl(FoodCategory.Burger)
     ),
     FoodDto(
         121,
