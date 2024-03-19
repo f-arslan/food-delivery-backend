@@ -38,6 +38,14 @@ fun Application.orderRoute() {
             )
         }
 
+        get("/orders/{userId}/order/flow") {
+            val userId = call.getValueFromParameters("userId", UUID::fromString)
+            orderService.getActiveOrderFlow(userId).fold(
+                onSuccess = { flow -> call.respond(flow) },
+                onFailure = { call.respond(HttpStatusCode.NotFound, it.message ?: "No active order found") }
+            )
+        }
+
         get("/orders/{userId}/complete") {
             val userId = call.getValueFromParameters("userId", UUID::fromString)
             orderService.completeCurrentOrder(userId).fold(

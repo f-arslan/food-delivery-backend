@@ -5,7 +5,6 @@ import com.example.dto.UserRegisterDto
 import com.example.dto.UserUpdateLocationDto
 import com.example.service.UserService.Companion.userService
 import com.example.util.Constants.GENERIC_ERROR
-import com.example.util.Constants.INVALID_USER_ID
 import com.example.util.ext.getValueFromParameters
 import io.ktor.http.*
 import io.ktor.server.application.*
