@@ -1,18 +1,16 @@
 package com.example.dto
 
-import com.example.util.BigDecimalSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
-import java.util.UUID
 
-@Serializable(with = BigDecimalSerializer::class)
+@Serializable
 data class OrderDto(
     val id: Int,
-    val userId: UUID,
+    val userId: String,
     val orderTime: Instant,
     val orderStatus: OrderStatus = OrderStatus.Pending,
-    val totalPrice: BigDecimal,
+    val totalPrice: Double,
     val paymentDetails: String? = null,
 )
 

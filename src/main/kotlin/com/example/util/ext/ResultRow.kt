@@ -23,10 +23,10 @@ fun ResultRow.toFoodDto(): FoodDto = FoodDto(
 
 fun ResultRow.toOrderDto(): OrderDto = OrderDto(
     id = this[Orders.id],
-    userId = this[Orders.userId],
+    userId = this[Orders.userId].toString(),
     orderTime = this[Orders.orderTime].toKotlinInstant(),
     orderStatus = this[Orders.orderStatus],
-    totalPrice = this[Orders.totalPrice],
+    totalPrice = this[Orders.totalPrice].toDouble(),
     paymentDetails = this[Orders.paymentDetails]
 )
 

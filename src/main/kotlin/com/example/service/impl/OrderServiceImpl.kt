@@ -6,9 +6,8 @@ import com.example.dto.OrderStatus
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.OrderService
 import com.example.table.Foods
-import com.example.table.OrderItems
+import com.example.table.Items
 import com.example.table.Orders
-import com.example.util.ext.toFoodDto
 import com.example.util.ext.toOrderDto
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
@@ -40,12 +39,12 @@ class OrderServiceImpl : OrderService {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
         }.forUpdate().single()
 
-        val orderId = OrderItems.insert {
-            it[OrderItems.orderId] = activeOrder[Orders.id]
-            it[OrderItems.foodId] = foodDto.id
-            it[OrderItems.quantity] = quantity
-            it[OrderItems.price] = foodDto.price.toBigDecimal()
-        }[OrderItems.id]
+        val orderId = Items.insert {
+            it[Items.orderId] = activeOrder[Orders.id]
+            it[Items.foodId] = foodDto.id
+            it[Items.quantity] = quantity
+            it[Items.price] = foodDto.price.toBigDecimal()
+        }[Items.id]
 
         val totalPrice = activeOrder[Orders.totalPrice] + (foodDto.price * quantity).toBigDecimal()
         Orders.update({ Orders.id eq activeOrder[Orders.id] }) {
@@ -56,21 +55,21 @@ class OrderServiceImpl : OrderService {
     }
 
     override suspend fun updateItemInOrder(orderId: Int, quantity: Int): Result<Boolean> = dbQuery {
-        val orderItem = OrderItems.select { OrderItems.id eq orderId }.singleOrNull()
+        val orderItem = Items.select { Items.id eq orderId }.singleOrNull()
         if (orderItem == null) {
             throw Exception("Order item not found")
         }
 
-        val food = Foods.select { Foods.id eq orderItem[OrderItems.foodId] }.single()
+        val food = Foods.select { Foods.id eq orderItem[Items.foodId] }.single()
         val totalPrice = (food[Foods.price] * quantity).toBigDecimal()
-        OrderItems.update({ OrderItems.id eq orderId }) {
-            it[OrderItems.quantity] = quantity
-            it[OrderItems.price] = totalPrice
+        Items.update({ Items.id eq orderId }) {
+            it[Items.quantity] = quantity
+            it[Items.price] = totalPrice
         }
 
-        val activeOrder = Orders.select { Orders.id eq orderItem[OrderItems.orderId] }.single()
-        val orderItems = OrderItems.select { OrderItems.orderId eq activeOrder[Orders.id] }
-        val newTotalPrice = orderItems.sumOf { it[OrderItems.price].toDouble() }.toBigDecimal()
+        val activeOrder = Orders.select { Orders.id eq orderItem[Items.orderId] }.single()
+        val orderItems = Items.select { Items.orderId eq activeOrder[Orders.id] }
+        val newTotalPrice = orderItems.sumOf { it[Items.price].toDouble() }.toBigDecimal()
         Orders.update({ Orders.id eq activeOrder[Orders.id] }) {
             it[Orders.totalPrice] = newTotalPrice
         }

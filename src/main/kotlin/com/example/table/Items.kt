@@ -2,7 +2,7 @@ package com.example.table
 
 import org.jetbrains.exposed.sql.Table
 
-object OrderItems : Table() {
+object Items : Table() {
     val id = integer("id").autoIncrement()
     val orderId = integer("orderId").references(Orders.id)
     val foodId = integer("foodId").references(Foods.id)
