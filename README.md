@@ -1,6 +1,4 @@
-# Food Delivery Backend API
-
-Welcome to the Food Delivery Backend API documentation.
+# Food Delivery Backend
 
 ## Base URL
 
