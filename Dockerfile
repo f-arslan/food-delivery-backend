@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY gradlew .
 COPY gradle ./gradle
+COPY gradle.properties .
 
 RUN chmod +x ./gradlew
 

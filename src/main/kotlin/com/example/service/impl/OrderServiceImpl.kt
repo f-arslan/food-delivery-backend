@@ -6,9 +6,9 @@ import com.example.service.OrderService
 import com.example.table.Foods
 import com.example.table.Items
 import com.example.table.Orders
-import com.example.util.ext.toFoodDto
 import com.example.util.ext.toItemDto
 import com.example.util.ext.toOrderDto
+import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
@@ -21,6 +21,15 @@ class OrderServiceImpl : OrderService {
 
         val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
         GetActiveOrderDto(order.toOrderDto(), items)
+    }
+
+    override suspend fun getActiveOrderFlow(userId: UUID): Result<Flow<GetActiveOrderDto>> = dbQuery {
+        Orders.select {
+            (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
+        }.map { order ->
+            val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
+            GetActiveOrderDto(order.toOrderDto(), items)
+        }.asFlow()
     }
 
     override suspend fun addFoodToOrder(userId: UUID, foodDto: FoodDto, quantity: Int): Result<Int> = dbQuery {
