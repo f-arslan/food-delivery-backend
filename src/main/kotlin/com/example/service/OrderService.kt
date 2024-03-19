@@ -9,8 +9,9 @@ import java.util.*
 interface OrderService {
     suspend fun getActiveOrder(userId: UUID): Result<GetActiveOrderDto>
     suspend fun addFoodToOrder(userId: UUID, foodDto: FoodDto, quantity: Int): Result<Int>
-    suspend fun updateItemInOrder(itemId: Int, quantity: Int): Result<ItemDto>
-    suspend fun clearCurrentOrder(userId: UUID): Result<Boolean>
+    suspend fun updateItemInOrder(itemId: Int, quantity: Int): Result<Boolean>
+    suspend fun deleteCurrentOrder(userId: UUID): Result<Boolean>
+    suspend fun deleteOrder(userId: UUID, orderId: Int): Result<Boolean>
 
     companion object {
         val orderService: OrderService by lazy { OrderServiceImpl() }

@@ -59,11 +59,24 @@ class OrderServiceImpl : OrderService {
         itemId
     }
 
-    override suspend fun updateItemInOrder(itemId: Int, quantity: Int): Result<ItemDto> = dbQuery {
+    override suspend fun updateItemInOrder(itemId: Int, quantity: Int): Result<Boolean> = dbQuery {
         val item = Items.select { Items.id eq itemId }.singleOrNull() ?: throw Exception("Item not found")
         val food = Foods.select { Foods.id eq item[Items.foodId] }.singleOrNull() ?: throw Exception("Food not found")
-
+        val order =
+            Orders.select { Orders.id eq item[Items.orderId] }.singleOrNull() ?: throw Exception("Order not found")
         val newQuantity = item[Items.quantity] + quantity
+
+        if (newQuantity < 0) {
+            Items.deleteWhere { Items.id eq itemId }
+
+            val newPrice = order[Orders.totalPrice] - (food[Foods.price] * item[Items.quantity]).toBigDecimal()
+            Orders.update({ Orders.id eq item[Items.orderId] }) {
+                it[Orders.totalPrice] = newPrice
+            }
+
+            return@dbQuery true
+        }
+
         val newPrice = food[Foods.price] * newQuantity
         Items.update({ Items.id eq itemId }) {
             it[Items.quantity] = newQuantity
@@ -73,17 +86,31 @@ class OrderServiceImpl : OrderService {
             it[Orders.totalPrice] = newPrice.toBigDecimal()
         }
 
-        ItemDto(
-            id = item[Items.id],
-            orderId = item[Items.orderId],
-            foodId = item[Items.foodId],
-            quantity = newQuantity,
-            price = food[Foods.price]
-        )
+        true
     }
 
-    override suspend fun clearCurrentOrder(userId: UUID): Result<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun deleteCurrentOrder(userId: UUID): Result<Boolean> = dbQuery {
+        val order = Orders.select {
+            (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
+        }.singleOrNull() ?: throw Exception("No active order found")
+
+        Items.deleteWhere { Items.orderId eq order[Orders.id] }
+        Orders.update({ Orders.id eq order[Orders.id] }) {
+            it[orderStatus] = OrderStatus.Cancelled
+        }
+
+        true
+    }
+
+    override suspend fun deleteOrder(userId: UUID, orderId: Int): Result<Boolean> = dbQuery {
+        val order = Orders.select {
+            (Orders.userId eq userId) and (Orders.id eq orderId)
+        }.singleOrNull() ?: throw Exception("Order not found")
+
+        Items.deleteWhere { Items.orderId eq order[Orders.id] }
+        Orders.deleteWhere { Orders.id eq order[Orders.id] }
+
+        true
     }
 
     private fun createOrder(userId: UUID) {

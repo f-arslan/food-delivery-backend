@@ -48,5 +48,31 @@ fun Application.orderRoute() {
                 onFailure = { call.respond(HttpStatusCode.NotFound, it.message ?: "No active order found") }
             )
         }
+
+        delete("/orders/{userId}/current") {
+            val userId = call.parameters["userId"].let { UUID.fromString(it) } ?: run {
+                call.respond(HttpStatusCode.BadRequest, INVALID_USER_ID)
+                return@delete
+            }
+            orderService.deleteCurrentOrder(userId).fold(
+                onSuccess = { call.respond(HttpStatusCode.OK, true) },
+                onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
+            )
+        }
+
+        delete("/orders/{userId}/{orderId}") {
+            val userId = call.parameters["userId"].let { UUID.fromString(it) } ?: run {
+                call.respond(HttpStatusCode.BadRequest, INVALID_USER_ID)
+                return@delete
+            }
+            val orderId = call.parameters["orderId"]?.toIntOrNull() ?: run {
+                call.respond(HttpStatusCode.BadRequest, "Invalid order id")
+                return@delete
+            }
+            orderService.deleteOrder(userId, orderId).fold(
+                onSuccess = { call.respond(HttpStatusCode.OK, true) },
+                onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
+            )
+        }
     }
 }
