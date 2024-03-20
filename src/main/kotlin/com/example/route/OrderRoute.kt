@@ -1,6 +1,5 @@
 package com.example.route
 
-import com.example.dto.FoodDto
 import com.example.service.OrderService.Companion.orderService
 import com.example.util.ext.getValueFromParameters
 import io.ktor.http.*
@@ -14,8 +13,8 @@ fun Application.orderRoute() {
     routing {
         post("/orders/{userId}/items") {
             val userId = call.getValueFromParameters("userId", UUID::fromString)
-            val foodDto = call.receive<FoodDto>()
-            orderService.addFoodToOrder(userId, foodDto, 1).fold(
+            val foodId = call.receive<Int>()
+            orderService.addFoodToOrder(userId, foodId, 1).fold(
                 onSuccess = { orderId -> call.respond(HttpStatusCode.OK, orderId) },
                 onFailure = { call.respond(HttpStatusCode.InternalServerError, it.message ?: "Unknown error") }
             )

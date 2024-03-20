@@ -69,7 +69,7 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
 - **POST** `/orders/{userId}/items`
     - Adds a food item to the user's order.
     - **Path**: `userId` (UUID as string)
-    - **Body**: `FoodDto` (JSON)
+    - **Body**: `foodId` (Integer)
     - **Response**: `200 OK` with order ID, `500 Internal Server Error` with error message.
 
 ### Update Order Item Quantity
@@ -86,6 +86,24 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
     - Retrieves the user's active order.
     - **Path**: `userId` (UUID as string)
     - **Response**: `200 OK` with order details, `404 Not Found` with error message.
+
+### Get All Order
+- **GET** `/orders/{userId}/all`
+    - Retrieves all orders for the specified user.
+    - **Path**: `userId` (UUID as string)
+    - **Response**: `200 OK` with a list of all orders, `404 Not Found` with error message if no orders are found.
+
+### Get All Order as Flow
+- **GET** `/orders/{userId}/all/flow`
+    - Retrieves a real-time flow of all orders for the specified user.
+    - **Path**: `userId` (UUID as string)
+    - **Response**: `200 OK` with a flow of orders, `404 Not Found` with error message if no orders are found.
+
+### Get Active Order as Flow
+- **GET** `/orders/{userId}/order/flow`
+    - Retrieves a real-time flow of the user's active order.
+    - **Path**: `userId` (UUID as string)
+    - **Response**: `200 OK` with a flow of the active order, `404 Not Found` with error message if no active order is found.
 
 ### Complete Order
 
@@ -107,6 +125,20 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
     - Deletes a specific order for the user.
     - **Path**: `userId` (UUID as string), `orderId` (Integer)
     - **Response**: `200 OK` with deletion status, `500 Internal Server Error` with error message.
+
+### Get All Orders
+
+- **GET** `/orders/{userId}/all`
+  - Retrieves all orders for the specified user.
+  - **Path**: `userId` (UUID as string)
+  - **Response**: `200 OK` with a list of all orders, `404 Not Found` with error message if no orders are found.
+
+### Get All Orders as Flow
+
+- **GET** `/orders/{userId}/all/flow`
+  - Retrieves a real-time flow of all orders for the specified user.
+  - **Path**: `userId` (UUID as string)
+  - **Response**: `200 OK` with a flow of orders, `404 Not Found` with error message if no orders are found.
 
 ## Food API Endpoints
 
@@ -131,16 +163,6 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
     - **Query**: `type` (String, optional) - Category type, defaults to "all".
     - **Response**: `200 OK` with foods by category, `404 Not Found` with error message.
 
-### Get All Orders
-
-- **GET** `/orders/{userId}/all`
-  - Retrieves all orders for the specified user.
-  - **Path**: `userId` (UUID as string)
-  - **Response**: `200 OK` with a list of all orders, `404 Not Found` with error message if no orders are found.
-
-### Get All Orders as Flow
-
-- **GET** `/orders/{userId}/all/flow`
-  - Retrieves a real-time flow of all orders for the specified user.
-  - **Path**: `userId` (UUID as string)
-  - **Response**: `200 OK` with a flow of orders, `404 Not Found` with error message if no orders are found.
+- **GET** `/foods/categories/list`
+    - Retrieves a list of all food categories.
+    - **Response**: `200 OK` with list of food categories, `404 Not Found` with error message.

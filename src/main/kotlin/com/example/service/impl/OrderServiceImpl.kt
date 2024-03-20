@@ -35,7 +35,9 @@ class OrderServiceImpl : OrderService {
         }.asFlow()
     }
 
-    override suspend fun addFoodToOrder(userId: UUID, foodDto: FoodDto, quantity: Int): Result<Int> = dbQuery {
+    override suspend fun addFoodToOrder(userId: UUID, foodId: Int, quantity: Int): Result<Int> = dbQuery {
+        val food = Foods.select { Foods.id eq foodId }.singleOrNull() ?: throw Exception("Food not found")
+
         Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
         }.forUpdate().singleOrNull() ?: createOrder(userId)
@@ -45,7 +47,7 @@ class OrderServiceImpl : OrderService {
         }.forUpdate().single()
 
         val item = Items.select {
-            (Items.orderId eq activeOrder[Orders.id]) and (Items.foodId eq foodDto.id)
+            (Items.orderId eq activeOrder[Orders.id]) and (Items.foodId eq foodId)
         }.singleOrNull()
 
         val itemId = if (item != null) {
@@ -57,13 +59,13 @@ class OrderServiceImpl : OrderService {
         } else {
             Items.insert {
                 it[Items.orderId] = activeOrder[Orders.id]
-                it[Items.foodId] = foodDto.id
+                it[Items.foodId] = foodId
                 it[Items.quantity] = quantity
-                it[Items.price] = foodDto.price
+                it[Items.price] = food[Foods.price]
             }[Items.id]
         }
 
-        val totalPrice = activeOrder[Orders.totalPrice] + foodDto.price * quantity.toBigDecimal()
+        val totalPrice = activeOrder[Orders.totalPrice] + food[Foods.price] * quantity.toBigDecimal()
         Orders.update({ Orders.id eq activeOrder[Orders.id] }) {
             it[Orders.totalPrice] = totalPrice
         }
