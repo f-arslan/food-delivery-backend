@@ -130,3 +130,17 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
     - Retrieves foods filtered by category.
     - **Query**: `type` (String, optional) - Category type, defaults to "all".
     - **Response**: `200 OK` with foods by category, `404 Not Found` with error message.
+
+### Get All Orders
+
+- **GET** `/orders/{userId}/all`
+  - Retrieves all orders for the specified user.
+  - **Path**: `userId` (UUID as string)
+  - **Response**: `200 OK` with a list of all orders, `404 Not Found` with error message if no orders are found.
+
+### Get All Orders as Flow
+
+- **GET** `/orders/{userId}/all/flow`
+  - Retrieves a real-time flow of all orders for the specified user.
+  - **Path**: `userId` (UUID as string)
+  - **Response**: `200 OK` with a flow of orders, `404 Not Found` with error message if no orders are found.

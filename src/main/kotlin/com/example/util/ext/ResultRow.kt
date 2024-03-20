@@ -11,7 +11,6 @@ import com.example.table.Users
 import kotlinx.datetime.toKotlinInstant
 import org.jetbrains.exposed.sql.ResultRow
 
-
 fun ResultRow.toFoodDto(): FoodDto = FoodDto(
     id = this[Foods.id],
     name = this[Foods.name],
@@ -28,7 +27,7 @@ fun ResultRow.toOrderDto(): OrderDto = OrderDto(
     userId = this[Orders.userId].toString(),
     orderTime = this[Orders.orderTime].toKotlinInstant(),
     orderStatus = this[Orders.orderStatus],
-    totalPrice = this[Orders.totalPrice].toDouble(),
+    totalPrice = this[Orders.totalPrice],
     paymentDetails = this[Orders.paymentDetails]
 )
 
@@ -51,5 +50,5 @@ fun ResultRow.toItemDto(): ItemDto = ItemDto(
     orderId = this[Items.orderId],
     foodId = this[Items.foodId],
     quantity = this[Items.quantity],
-    price = this[Items.price].toDouble()
+    price = this[Items.price]
 )
