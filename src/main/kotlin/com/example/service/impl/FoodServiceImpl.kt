@@ -1,11 +1,11 @@
 package com.example.service.impl
 
 import com.example.dto.FoodDto
-import com.example.fake.foodDtos
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.FoodService
 import com.example.table.Foods
 import com.example.util.ext.toFoodDto
+import com.example.util.ext.toFoodType
 import org.jetbrains.exposed.sql.*
 
 class FoodServiceImpl : FoodService {
@@ -29,12 +29,12 @@ class FoodServiceImpl : FoodService {
     }
 
     override suspend fun getFoodsByCategory(type: String): Result<List<FoodDto>> = dbQuery {
-        val foodsByCategory = Foods.select { Foods.category eq type }
+        val foodsByCategory = Foods.select { Foods.category eq type.toFoodType() }
         val foods = foodsByCategory.map { it.toFoodDto() }
         foods
     }
 
-    override suspend fun registerFood(foodDto: FoodDto): Result<Unit> = dbQuery {
+    override suspend fun registerFood(foodDto: FoodDto): Result<Boolean> = dbQuery {
         Foods.insert {
             it[name] = foodDto.name
             it[description] = foodDto.description
@@ -44,5 +44,6 @@ class FoodServiceImpl : FoodService {
             it[category] = foodDto.category
             it[imageUrl] = foodDto.imageUrl
         }
+        true
     }
 }

@@ -8,7 +8,7 @@ interface FoodService {
     suspend fun searchFood(query: String): Result<List<FoodDto>>
     suspend fun getAllFoods(): Result<List<FoodDto>>
     suspend fun getFoodsByCategory(type: String): Result<List<FoodDto>>
-    suspend fun registerFood(foodDto: FoodDto): Result<Unit>
+    suspend fun registerFood(foodDto: FoodDto): Result<Boolean>
     companion object {
         val foodService: FoodService by lazy { FoodServiceImpl() }
     }

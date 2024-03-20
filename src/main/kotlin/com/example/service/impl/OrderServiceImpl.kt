@@ -1,6 +1,8 @@
 package com.example.service.impl
 
-import com.example.dto.*
+import com.example.dto.FoodDto
+import com.example.dto.GetOrderWithItemsDto
+import com.example.dto.OrderStatus
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.OrderService
 import com.example.table.Foods
@@ -8,7 +10,8 @@ import com.example.table.Items
 import com.example.table.Orders
 import com.example.util.ext.toItemDto
 import com.example.util.ext.toOrderDto
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
@@ -56,11 +59,11 @@ class OrderServiceImpl : OrderService {
                 it[Items.orderId] = activeOrder[Orders.id]
                 it[Items.foodId] = foodDto.id
                 it[Items.quantity] = quantity
-                it[Items.price] = foodDto.price.toBigDecimal()
+                it[Items.price] = foodDto.price
             }[Items.id]
         }
 
-        val totalPrice = activeOrder[Orders.totalPrice] + (foodDto.price * quantity).toBigDecimal()
+        val totalPrice = activeOrder[Orders.totalPrice] + foodDto.price * quantity.toBigDecimal()
         Orders.update({ Orders.id eq activeOrder[Orders.id] }) {
             it[Orders.totalPrice] = totalPrice
         }
@@ -75,26 +78,27 @@ class OrderServiceImpl : OrderService {
             Orders.select { Orders.id eq item[Items.orderId] }.singleOrNull() ?: throw Exception("Order not found")
         val newQuantity = item[Items.quantity] + quantity
 
-        if (newQuantity < 0) {
-            Items.deleteWhere { Items.id eq itemId }
-
-            val newPrice = order[Orders.totalPrice] - (food[Foods.price] * item[Items.quantity]).toBigDecimal()
-            Orders.update({ Orders.id eq item[Items.orderId] }) {
-                it[Orders.totalPrice] = newPrice
+        when {
+            newQuantity < 0 -> {
+                Items.deleteWhere { Items.id eq itemId }
+                val newPrice = order[Orders.totalPrice] - (food[Foods.price] * item[Items.quantity].toBigDecimal())
+                Orders.update({ Orders.id eq item[Items.orderId] }) {
+                    it[Orders.totalPrice] = newPrice
+                }
             }
 
-            return@dbQuery true
-        }
+            else -> {
+                val newPrice = food[Foods.price] * newQuantity.toBigDecimal()
+                Items.update({ Items.id eq itemId }) {
+                    it[Items.quantity] = newQuantity
+                }
 
-        val newPrice = food[Foods.price] * newQuantity
-        Items.update({ Items.id eq itemId }) {
-            it[Items.quantity] = newQuantity
-        }
+                Orders.update({ Orders.id eq item[Items.orderId] }) {
+                    it[Orders.totalPrice] = newPrice
+                }
 
-        Orders.update({ Orders.id eq item[Items.orderId] }) {
-            it[Orders.totalPrice] = newPrice.toBigDecimal()
+            }
         }
-
         true
     }
 
