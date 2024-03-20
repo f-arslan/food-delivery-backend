@@ -71,7 +71,7 @@ fun Application.userRoute() {
             val userId = call.getValueFromParameters("userId", UUID::fromString)
             val userUpdateLocationDto = call.receive<UserUpdateLocationDto>()
             userService.updateUserLocation(userId, userUpdateLocationDto).fold(
-                onSuccess = { call.respond(HttpStatusCode.OK) },
+                onSuccess = { call.respond(HttpStatusCode.OK, it) },
                 onFailure = { throwable ->
                     call.respond(
                         status = HttpStatusCode.NotFound,

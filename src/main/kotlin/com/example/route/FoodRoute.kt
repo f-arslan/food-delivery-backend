@@ -1,11 +1,14 @@
 package com.example.route
 
+import com.example.dto.FoodCategory
+import com.example.fake.foodDtos
 import com.example.service.FoodService.Companion.foodService
 import com.example.util.Constants.GENERIC_ERROR
 import com.example.util.Constants.INVALID_SEARCH_QUERY
 import com.example.util.ext.getValueFromParameters
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -60,6 +63,11 @@ fun Application.foodRoute() {
                     )
                 }
             )
+        }
+
+        get("/foods/categories/list") {
+            val categories = FoodCategory.entries.map(FoodCategory::name)
+            call.respond(categories)
         }
     }
 }
