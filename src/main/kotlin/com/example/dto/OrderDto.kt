@@ -1,7 +1,9 @@
 package com.example.dto
 
+import com.example.util.BigDecimalSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import java.math.BigDecimal
 
 enum class OrderStatus {
     Pending, Started, Processing, Finished, Cancelled
@@ -13,7 +15,7 @@ data class OrderDto(
     val userId: String,
     val orderTime: Instant,
     val orderStatus: OrderStatus = OrderStatus.Pending,
-    val totalPrice: Double,
+    @Serializable(with = BigDecimalSerializer::class) val totalPrice: BigDecimal,
     val paymentDetails: String? = null,
 )
 

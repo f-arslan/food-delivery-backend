@@ -1,6 +1,8 @@
 package com.example.dto
 
+import com.example.util.BigDecimalSerializer
 import kotlinx.serialization.Serializable
+import java.math.BigDecimal
 
 @Serializable
 data class ItemDto(
@@ -8,5 +10,5 @@ data class ItemDto(
     val orderId: Int,
     val foodId: Int,
     val quantity: Int,
-    val price: Double
+    @Serializable(with = BigDecimalSerializer::class) val price: BigDecimal
 )
