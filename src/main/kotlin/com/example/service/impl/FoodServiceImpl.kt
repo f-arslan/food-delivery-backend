@@ -4,6 +4,7 @@ import com.example.dto.FoodDto
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.FoodService
 import com.example.table.Foods
+import com.example.util.ServiceException.FoodNotFoundException
 import com.example.util.ext.toFoodDto
 import com.example.util.ext.toFoodType
 import org.jetbrains.exposed.sql.*
@@ -11,7 +12,7 @@ import org.jetbrains.exposed.sql.*
 class FoodServiceImpl : FoodService {
     override suspend fun getFoodDetail(foodId: Int): Result<FoodDto> = dbQuery {
         val food = Foods.select { Foods.id eq foodId }.singleOrNull()
-        food?.toFoodDto() ?: throw Exception("Food not found")
+        food?.toFoodDto() ?: throw FoodNotFoundException(foodId)
     }
 
     override suspend fun searchFood(query: String): Result<List<FoodDto>> = dbQuery {

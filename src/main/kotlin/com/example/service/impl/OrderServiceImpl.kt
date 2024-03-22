@@ -1,6 +1,5 @@
 package com.example.service.impl
 
-import com.example.dto.FoodDto
 import com.example.dto.GetOrderWithItemsDto
 import com.example.dto.OrderStatus
 import com.example.service.DatabaseModule.dbQuery
@@ -8,6 +7,7 @@ import com.example.service.OrderService
 import com.example.table.Foods
 import com.example.table.Items
 import com.example.table.Orders
+import com.example.util.ServiceException.*
 import com.example.util.ext.toItemDto
 import com.example.util.ext.toOrderDto
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,7 @@ class OrderServiceImpl : OrderService {
     override suspend fun getActiveOrder(userId: UUID): Result<GetOrderWithItemsDto> = dbQuery {
         val order = Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
-        }.singleOrNull() ?: throw Exception("No active order found")
+        }.singleOrNull() ?: throw ActiveOrderNotFoundException(userId)
 
         val items = Items.select { Items.orderId eq order[Orders.id] }.map { it.toItemDto() }
         GetOrderWithItemsDto(order.toOrderDto(), items)
@@ -36,7 +36,7 @@ class OrderServiceImpl : OrderService {
     }
 
     override suspend fun addFoodToOrder(userId: UUID, foodId: Int, quantity: Int): Result<Int> = dbQuery {
-        val food = Foods.select { Foods.id eq foodId }.singleOrNull() ?: throw Exception("Food not found")
+        val food = Foods.select { Foods.id eq foodId }.singleOrNull() ?: throw FoodNotFoundException(foodId)
 
         Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
@@ -74,10 +74,13 @@ class OrderServiceImpl : OrderService {
     }
 
     override suspend fun updateItemInOrder(itemId: Int, quantity: Int): Result<Boolean> = dbQuery {
-        val item = Items.select { Items.id eq itemId }.singleOrNull() ?: throw Exception("Item not found")
-        val food = Foods.select { Foods.id eq item[Items.foodId] }.singleOrNull() ?: throw Exception("Food not found")
-        val order =
-            Orders.select { Orders.id eq item[Items.orderId] }.singleOrNull() ?: throw Exception("Order not found")
+        val item = Items.select { Items.id eq itemId }.singleOrNull()
+            ?: throw ItemNotFoundException(itemId)
+        val food = Foods.select { Foods.id eq item[Items.foodId] }.singleOrNull()
+            ?: throw FoodNotFoundException(item[Items.foodId])
+        val order = Orders.select { Orders.id eq item[Items.orderId] }.singleOrNull()
+            ?: throw NotFoundException(item[Items.orderId])
+
         val newQuantity = item[Items.quantity] + quantity
 
         when {
@@ -107,7 +110,7 @@ class OrderServiceImpl : OrderService {
     override suspend fun deleteCurrentOrder(userId: UUID): Result<Boolean> = dbQuery {
         val order = Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
-        }.singleOrNull() ?: throw Exception("No active order found")
+        }.singleOrNull() ?: throw ActiveOrderNotFoundException(userId)
 
         Items.deleteWhere { Items.orderId eq order[Orders.id] }
         Orders.update({ Orders.id eq order[Orders.id] }) {
@@ -120,7 +123,7 @@ class OrderServiceImpl : OrderService {
     override suspend fun deleteOrder(userId: UUID, orderId: Int): Result<Boolean> = dbQuery {
         val order = Orders.select {
             (Orders.userId eq userId) and (Orders.id eq orderId)
-        }.singleOrNull() ?: throw Exception("Order not found")
+        }.singleOrNull() ?: throw NotFoundException(orderId)
 
         Items.deleteWhere { Items.orderId eq order[Orders.id] }
         Orders.deleteWhere { Orders.id eq order[Orders.id] }
@@ -131,7 +134,7 @@ class OrderServiceImpl : OrderService {
     override suspend fun completeCurrentOrder(userId: UUID): Result<Boolean> = dbQuery {
         val order = Orders.select {
             (Orders.userId eq userId) and (Orders.orderStatus eq OrderStatus.Started)
-        }.singleOrNull() ?: throw Exception("No active order found")
+        }.singleOrNull() ?: throw ActiveOrderNotFoundException(userId)
 
         Orders.update({ Orders.id eq order[Orders.id] }) {
             it[orderStatus] = OrderStatus.Finished
@@ -143,7 +146,7 @@ class OrderServiceImpl : OrderService {
     override suspend fun cancelOrder(userId: UUID, orderId: Int): Result<Boolean> = dbQuery {
         val order = Orders.select {
             (Orders.userId eq userId) and (Orders.id eq orderId)
-        }.singleOrNull() ?: throw Exception("Order not found")
+        }.singleOrNull() ?: throw NotFoundException(orderId)
 
         Orders.update({ Orders.id eq order[Orders.id] }) {
             it[orderStatus] = OrderStatus.Cancelled

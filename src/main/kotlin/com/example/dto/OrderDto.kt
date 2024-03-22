@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
 enum class OrderStatus {
-    Pending, Started, Processing, Finished, Cancelled
+    Pending, Started, Finished, Cancelled
 }
 
 @Serializable
@@ -16,7 +16,7 @@ data class OrderDto(
     val orderTime: Instant,
     val orderStatus: OrderStatus = OrderStatus.Pending,
     @Serializable(with = BigDecimalSerializer::class) val totalPrice: BigDecimal,
-    val paymentDetails: String? = null,
+    val paymentDetails: String? = null
 )
 
 @Serializable

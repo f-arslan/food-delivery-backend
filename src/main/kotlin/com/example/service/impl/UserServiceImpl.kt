@@ -7,6 +7,7 @@ import com.example.dto.UserUpdateLocationDto
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.UserService
 import com.example.table.Users
+import com.example.util.ServiceException.*
 import com.example.util.ext.toUserDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -22,7 +23,7 @@ class UserServiceImpl : UserService {
         if (user != null) {
             user[Users.userId].toString()
         } else {
-            throw Exception("Invalid email or password")
+            throw InvalidUsernameOrPasswordException()
         }
     }
 
@@ -30,7 +31,7 @@ class UserServiceImpl : UserService {
         val registerStatement = Users.select { Users.email eq userRegisterDto.email }
         val user = registerStatement.singleOrNull()
         if (user != null) {
-            throw Exception("Email already exists")
+            throw EmailAlreadyExistsException()
         } else {
             Users.insert {
                 it[fullName] = userRegisterDto.fullName
@@ -44,7 +45,7 @@ class UserServiceImpl : UserService {
     override suspend fun getProfileFlow(userId: UUID): Result<Flow<UserDto>> = dbQuery {
         val user = Users.select { Users.userId eq userId }
         if (user.empty()) {
-            throw Exception("User not found")
+            throw UserNotFoundException(userId)
         } else {
             val userFlow = user.map { it.toUserDto() }.asFlow()
             userFlow
@@ -54,7 +55,7 @@ class UserServiceImpl : UserService {
     override suspend fun getProfile(userId: UUID): Result<UserDto> = dbQuery {
         val user = Users.select { Users.userId eq userId }
         if (user.empty()) {
-            throw Exception("User not found")
+            throw UserNotFoundException(userId)
         } else {
             user.single().toUserDto()
         }
@@ -66,7 +67,7 @@ class UserServiceImpl : UserService {
     ): Result<Boolean> = dbQuery {
         val user = Users.select { Users.userId eq userId }
         if (user.empty()) {
-            throw Exception("User not found")
+            throw UserNotFoundException(userId)
         } else {
             Users.update({ Users.userId eq userId }) {
                 it[latitude] = userUpdateLocationDto.latitude
