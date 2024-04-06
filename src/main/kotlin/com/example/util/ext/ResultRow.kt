@@ -15,6 +15,7 @@ fun ResultRow.toFoodDto(): FoodDto = FoodDto(
     id = this[Foods.id],
     name = this[Foods.name],
     description = this[Foods.description],
+    restaurant = this[Foods.restaurant],
     price = this[Foods.price],
     rating = this[Foods.rating],
     orderCount = this[Foods.orderCount],

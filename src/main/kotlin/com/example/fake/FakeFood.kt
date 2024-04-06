@@ -64,7 +64,8 @@ data class Food(
     val rating: Double,
     val orderCount: Int,
     val category: FoodCategory,
-    val imageUrl: String
+    val imageUrl: String,
+    val restaurant: String = "",
 )
 
 fun Food.toFoodDto(): FoodDto {
@@ -72,6 +73,7 @@ fun Food.toFoodDto(): FoodDto {
         id = this.id,
         name = this.name,
         description = this.description,
+        restaurant = this.restaurant,
         price = this.price.toBigDecimal(),
         rating = this.rating,
         orderCount = this.orderCount,
@@ -1581,6 +1583,6 @@ val foodDtos = listOf(
         FoodCategory.Pizza,
         getRandomImageUrl(FoodCategory.Pizza)
     ),
-).map  {
+).map {
     it.toFoodDto()
 }

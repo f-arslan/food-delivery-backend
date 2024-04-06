@@ -1,6 +1,7 @@
 package com.example.service.impl
 
 import com.example.dto.FoodDto
+import com.example.fake.FakeRestaurants
 import com.example.service.DatabaseModule.dbQuery
 import com.example.service.FoodService
 import com.example.table.Foods
@@ -44,6 +45,16 @@ class FoodServiceImpl : FoodService {
             it[orderCount] = foodDto.orderCount
             it[category] = foodDto.category
             it[imageUrl] = foodDto.imageUrl
+        }
+        true
+    }
+
+    override suspend fun updateRestaurant(): Result<Boolean> = dbQuery {
+        val allFoodIds = Foods.selectAll().map { it[Foods.id] }
+        allFoodIds.forEach { foodId ->
+            Foods.update({ Foods.id eq foodId }) {
+                it[restaurant] = FakeRestaurants.random()
+            }
         }
         true
     }

@@ -9,6 +9,7 @@ data class FoodDto(
     val id: Int,
     val name: String,
     val description: String,
+    val restaurant: String,
     @Serializable(with = BigDecimalSerializer::class) val price: BigDecimal,
     val rating: Double,
     val orderCount: Int,

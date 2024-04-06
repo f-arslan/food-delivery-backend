@@ -7,6 +7,7 @@ object Foods : Table() {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 128)
     val description = varchar("description", 256)
+    val restaurant = varchar("restaurant", 256)
     val price = decimal("price", 10, 2)
     val rating = double("rating")
     val orderCount = integer("orderCount")
