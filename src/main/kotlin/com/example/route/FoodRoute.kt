@@ -67,9 +67,5 @@ fun Application.foodRoute() {
             val categories = FoodCategory.entries.map(FoodCategory::name)
             call.respond(categories)
         }
-
-        get("/foods/update") {
-            foodService.updateRestaurant()
-        }
     }
 }
