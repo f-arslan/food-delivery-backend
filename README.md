@@ -10,7 +10,7 @@ For information on the Data Transfer Objects (DTOs) used in the requests and
 responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
 
 <div align="center">
-<img src="public/diagram.png"/>
+<img src="public/diagram_v1.png"/>
 </div>
 
 ## User API Endpoints
