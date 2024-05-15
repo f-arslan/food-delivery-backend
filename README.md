@@ -1,6 +1,6 @@
 # Food Delivery Backend
 
-## Base URL
+## Base URL (CLOSED)
 
 [https://espresso-food-delivery-backend-cc3e106e2d34.herokuapp.com/](https://espresso-food-delivery-backend-cc3e106e2d34.herokuapp.com/)
 
@@ -40,16 +40,6 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
     - Path Parameters: `userId` (UUID) - The unique identifier of the user.
     - Responses:
         - `200 OK` with user profile details if found.
-        - `404 Not Found` with error message if user profile is not found.
-
-### Get User Profile Flow
-
-- **GET** `/profile/{userId}/flow`
-    - Description: Retrieves a flow of profile details for a specific user. This is typically used for real-time
-      updates.
-    - Path Parameters: `userId` (UUID) - The unique identifier of the user.
-    - Responses:
-        - `200 OK` with a flow of user profile details if found.
         - `404 Not Found` with error message if user profile is not found.
 
 ### Update User Location
@@ -93,18 +83,6 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
     - **Path**: `userId` (UUID as string)
     - **Response**: `200 OK` with a list of all orders, `404 Not Found` with error message if no orders are found.
 
-### Get All Order as Flow
-- **GET** `/orders/{userId}/all/flow`
-    - Retrieves a real-time flow of all orders for the specified user.
-    - **Path**: `userId` (UUID as string)
-    - **Response**: `200 OK` with a flow of orders, `404 Not Found` with error message if no orders are found.
-
-### Get Active Order as Flow
-- **GET** `/orders/{userId}/order/flow`
-    - Retrieves a real-time flow of the user's active order.
-    - **Path**: `userId` (UUID as string)
-    - **Response**: `200 OK` with a flow of the active order, `404 Not Found` with error message if no active order is found.
-
 ### Complete Order
 
 - **GET** `/orders/{userId}/complete`
@@ -132,13 +110,6 @@ responses, [check out the DTOs here](/src/main/kotlin/com/example/dto).
   - Retrieves all orders for the specified user.
   - **Path**: `userId` (UUID as string)
   - **Response**: `200 OK` with a list of all orders, `404 Not Found` with error message if no orders are found.
-
-### Get All Orders as Flow
-
-- **GET** `/orders/{userId}/all/flow`
-  - Retrieves a real-time flow of all orders for the specified user.
-  - **Path**: `userId` (UUID as string)
-  - **Response**: `200 OK` with a flow of orders, `404 Not Found` with error message if no orders are found.
 
 ## Food API Endpoints
 
